@@ -5,6 +5,8 @@ import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
 import titleMixin from './util/title'
 import * as filters from './util/filters'
+import Raven from 'raven-js'
+import RavenVue from 'raven-js/plugins/vue'
 
 // mixin for handling title
 Vue.mixin(titleMixin)
@@ -13,6 +15,11 @@ Vue.mixin(titleMixin)
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+
+Raven
+  .config('https://d2f7bda58f454313ae04cf5933fd535e@sentry.io/221066')
+  .addPlugin(RavenVue, Vue)
+  .install()
 
 // Expose a factory function that creates a fresh set of store, router,
 // app instances on each call (which is called for each SSR request)
