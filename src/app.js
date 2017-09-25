@@ -7,6 +7,8 @@ import titleMixin from './util/title'
 import * as filters from './util/filters'
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
+import Vuetify from 'vuetify'
+import Moment from 'vue-moment'
 
 // mixin for handling title
 Vue.mixin(titleMixin)
@@ -20,6 +22,22 @@ Raven
   .config('https://d2f7bda58f454313ae04cf5933fd535e@sentry.io/221066')
   .addPlugin(RavenVue, Vue)
   .install()
+
+Vue.use(Vuetify)
+Vue.use(Moment)
+
+const stringToColour = (str) => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let colour = '#';
+  for (let i = 0; i < 3; i++) {
+    let value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
 
 // Expose a factory function that creates a fresh set of store, router,
 // app instances on each call (which is called for each SSR request)

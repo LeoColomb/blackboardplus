@@ -19,7 +19,7 @@ Vue.use(Vuex)
 
 export function createStore () {
   let store = new Vapi({
-    baseURL: "https://ntnu.blackboard.com/learn/api/public/v1",
+    baseURL: "http://localhost:8081", //"https://ntnu.blackboard.com/learn/api/public/v1",
     state: {
       announcements: [],
       courses: [],

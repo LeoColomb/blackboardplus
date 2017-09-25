@@ -29,8 +29,10 @@
     "serve-favicon": "^2.4.4",
     "vue": "^2.4.4",
     "vue-axios": "^2.0.2",
+    "vue-moment": "^2.0.2",
     "vue-router": "^2.7.0",
     "vue-server-renderer": "^2.4.4",
+    "vuetify": "^0.15.7",
     "vuex": "^2.4.0",
     "vuex-rest-api": "^2.2.1",
     "vuex-router-sync": "^4.3.1"

@@ -1,15 +1,23 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <v-card v-for="announcement in announcements" :key="announcement.id">
+      <v-card v-for="course in courses" :key="course.id">
+        <v-card-media>
+          <v-container fill-height fluid>
+            <v-layout fill-height>
+              <v-flex xs12 align-middle flexbox>
+                <span class="headline" v-text="course.courseId"></span>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-media>
         <v-card-title primary-title>
           <div>
-            <div class="headline">{{announcement.title}}</div>
-            <time class="grey--text" :datetime="announcement.created">{{ announcement.created | moment("from") }}</time>
+            <div class="headline">{{course.name}}</div>
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat>Listen now</v-btn>
+          <v-btn :href="course.externalAccessUrl" flat>Listen now</v-btn>
           <v-spacer></v-spacer>
           <v-btn icon @click.native="show = !show">
             <!--<v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>-->
@@ -18,7 +26,7 @@
         </v-card-actions>
         <v-slide-y-transition>
           <v-card-text v-show="show">
-            {{announcement.body}}
+            {{course.body}}
           </v-card-text>
         </v-slide-y-transition>
       </v-card>
@@ -31,24 +39,20 @@
 
   export default {
     created() {
-      this.listAnnouncements()
+      this.listCourses()
     },
-
-    data: () => ({
-      show: false
-    }),
 
     // make states available
     computed: {
       ...mapState({
-        announcements: state => state.announcements.results,
+        courses: state => state.courses.results,
         pending: state => state.pending,
         error: state => state.error
       })
     },
     methods: {
       ...mapActions([
-        "listAnnouncements"
+        "listCourses"
       ])
     }
   }
